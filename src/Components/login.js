@@ -9,6 +9,9 @@ import { UserAddOutlined, UnlockOutlined, StarTwoTone } from '@ant-design/icons'
 import 'antd/dist/antd.css';
 import Navbar from './navbar/appnavbar'
 import { connect } from 'react-redux'
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { login } from '../actions/auth'
 import axios from 'axios'
 import PropTypes from 'prop-types'
@@ -28,13 +31,21 @@ class Login extends React.Component {
     }
     componentDidMount = () => {
     }
+    showTest = (val) => {
+        toast(val);
+    }
     buttonHandler = () => {
-        console.log(this.state)
-        const { email, password } = this.state
-        this.props.login({ email, password })
+        try {
+            const { email, password } = this.state
+            this.props.login({ email, password })
+            this.showTest("You are logging in")
+
+        } catch (err) {
+            this.showTest("task is being updated")
+
+        }
     }
     componentDidUpdate() {
-        console.log("tokenlogin", localStorage.getItem('authToken'))
         if (localStorage.getItem('authToken')) {
             this.setState({ redirection: true })
         }
@@ -62,6 +73,8 @@ class Login extends React.Component {
                 {/* <Navbar /> */}
 
                 <Container>
+                    <ToastContainer />
+
                     <Row>{this.redirectfun()}
                         <Col sm="4"></Col>
                         <div >

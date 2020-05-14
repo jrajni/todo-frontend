@@ -27,7 +27,8 @@ export default class Appnavbar extends React.Component {
         }
     }
     componentDidMount() {
-        console.log("nav", localStorage.getItem('authToken'))
+
+        console.log("nav", this.props)
         if (localStorage.getItem('authToken')) {
             this.setState({ tokenPresent: true })
         }
@@ -45,7 +46,7 @@ export default class Appnavbar extends React.Component {
                 {/* {this.redirection()} */}
                 <Navbar color="dark" dark expand="sm" className="mb-5">
                     <Container>
-                        <NavbarBrand href="/">Authentication</NavbarBrand>
+                        <NavbarBrand href="/">Todo List</NavbarBrand>
                         <NavbarToggler onClick={this.toggle}></NavbarToggler>
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>

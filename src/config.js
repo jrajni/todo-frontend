@@ -1,6 +1,6 @@
 // dev config variables name
 const dev = {
-  hostName: "http://58b6930c.ngrok.io",
+  hostName: "https://todolistnyx.herokuapp.com",
 };
 
 const config = dev;

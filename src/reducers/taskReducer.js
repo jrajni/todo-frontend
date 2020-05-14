@@ -1,6 +1,10 @@
 import { FETCH_TASK, ADD_TASK, DELETE_TASK, UPDATE_TASK } from '../actions/type'
 const initialState = {
     items: [],
+    loading: false,
+    addloading: false,
+    deleteloading: false,
+    updateloading: false,
     currentItem: {
         text: "",
         key: "",
@@ -12,23 +16,25 @@ export default function (state = initialState, action) {
         case FETCH_TASK:
             return {
                 ...state,
+                // loading: true,
                 items: action.payload
             }
         case ADD_TASK:
             return {
                 ...state,
+                addloading: true,
                 items: action.payload
             }
         case DELETE_TASK:
-            console.log("delete working")
             return {
                 ...state,
+                deleteloading: true,
                 items: action.payload
             }
         case UPDATE_TASK:
-            console.log("update working")
             return {
                 ...state,
+                updateloading: true,
                 items: action.payload
             }
         default:

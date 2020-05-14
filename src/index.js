@@ -11,25 +11,31 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Landing from './Components/landing'
+import { PersistGate } from "redux-persist/lib/integration/react";
+
 // const store = createStore()
-import store from './Components/store'
+import { store, persistor } from './Components/store'
 
 class Root extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <Router>
-          <Navbar />
-          <Switch>
-            {/* <Route exact path="/" component={Landing}></Route> */}
-            <Route path="/pagenotfound" component={PageNotFound}></Route>
+        <PersistGate persistor={persistor}>
 
-            <Route exact path="/home" component={Home}></Route>
-            <Route exact path="/login" component={Login}></Route>
-            <Route exact path="/signup" component={Signup}></Route>
+          <Router>
+            <Navbar />
+            <Switch>
+              <Route exact path="/" component={Login}></Route>
+              <Route path="/pagenotfound" component={PageNotFound}></Route>
 
-          </Switch>
-        </Router></Provider>
+              <Route exact path="/home" component={Home}></Route>
+              <Route exact path="/login" component={Login}></Route>
+              <Route exact path="/signup" component={Signup}></Route>
+
+            </Switch>
+          </Router>
+        </PersistGate>
+      </Provider>
     )
   }
 }

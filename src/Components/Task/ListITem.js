@@ -32,20 +32,24 @@ class ListITem extends React.Component {
             <div className="container">
                 {/* {listItems} */}
                 <ul class="list-group">
-                    {this.props.items.map((element) => {
+                    {this.props.items && this.props.items.map((element) => {
                         { element.isActive ? clasvar = "text-dark" : clasvar = "text-secondary" }
 
                         return <span>
-                            <li className={`list-group-item ${clasvar}`}>{element.text}
-                                <EditOutlined style={{ float: "right", margin: 5, padding: 5 }} onClick={() => { this.Modal(element) }} />
-                                <button style={{ float: "right" }} onClick={() => {
-                                    this.props.completeItem(element.key)
-                                }} >Completed</button>
-
-                                <DeleteOutlined style={{ float: "right", padding: 5 }} onClick={() => {
+                            <li className={`list-group-item p-2 m-2 ${clasvar}`}>{element.text}
+                                {element.isActive && <EditOutlined style={{ float: "right", margin: 1, padding: 5 }} onClick={() => { this.Modal(element) }} />}
+                                {element.isActive && <DeleteOutlined style={{ float: "right", margin: 1, padding: 5 }} onClick={() => {
 
                                     this.props.deleteItem(element.key)
-                                }}></DeleteOutlined>
+                                }}></DeleteOutlined>}
+                                <button style={{ float: "right", border: "none" }} onClick={() => {
+                                    this.props.completeItem(element.key)
+                                }} >{element.isActive ? <span
+                                    // classname="chnagesPara"
+                                    style={{ fontSize: "12px", color: "blue" }}
+                                >Complete</span> : <span>marked as completed</span>}</button>
+
+
                             </li>
 
 

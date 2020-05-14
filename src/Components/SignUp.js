@@ -11,6 +11,8 @@ import { login } from '../actions/auth'
 import PropTypes from 'prop-types'
 import Navbar from './navbar/appnavbar'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Redirect } from 'react-router'
 import axios from 'axios'
 export default class Example extends React.Component {
@@ -29,17 +31,27 @@ export default class Example extends React.Component {
             return <Redirect to="/login" />
         }
     }
-    buttonHandler = () => {
-        console.log(this.state)
+    showTest = (val) => {
+        toast(val);
+    }
+    buttonHandler = async () => {
         const { email, password, fname, lname } = this.state
         let name = fname + lname
-        axios.post(Config.hostName + `/api/user/register`, { email, password, name })
-            .then((res) => {
-                console.log("api hit sign", res.data)
-                this.setState({ redirect: true })
+        try {
+            // this.showTest("Registeration in processing")
 
-            })
-            .catch((err) => { console.log("api error sign", err) })
+            await axios.post(Config.hostName + `/api/user/register`, { email, password, name })
+                .then((res) => {
+                    this.setState({ redirect: true })
+                })
+                .catch((err) => {
+                    this.showTest("Some error occur")
+
+                })
+        } catch (err) {
+            this.showTest("Some error occur")
+
+        }
 
     }
     onFinishFailed = errorInfo => {
